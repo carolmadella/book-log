@@ -1,0 +1,104 @@
+<div class="container" *ngIf="!loading; else loadingTpl">
+  <h2 class="text-center">
+    {{ isEditMode ? 'Edit Book' : 'Add New Book' }}
+  </h2>
+  <form [formGroup]="bookForm" (ngSubmit)="submitForm()" class="form-horizontal">
+
+    <!-- Title -->
+    <div class="form-group" [ngClass]="{'has-error': bookForm.get('title')?.invalid && bookForm.get('title')?.touched}">
+      <label class="control-label col-sm-3">Title *</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" formControlName="title">
+        <span class="help-block" *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched">
+          Title is required.
+        </span>
+      </div>
+    </div>
+
+    <!-- Author -->
+    <div class="form-group" [ngClass]="{'has-error': bookForm.get('author')?.invalid && bookForm.get('author')?.touched}">
+      <label class="control-label col-sm-3">Author *</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" formControlName="author">
+        <span class="help-block" *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.touched">
+          Author is required.
+        </span>
+      </div>
+    </div>
+
+
+    <!-- Genre -->
+    <div class="form-group" [ngClass]="{'has-error': bookForm.get('genre')?.invalid && bookForm.get('genre')?.touched}">
+      <label class="control-label col-sm-3">Genre *</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" formControlName="genre">
+        <span class="help-block" *ngIf="bookForm.get('genre')?.invalid && bookForm.get('genre')?.touched">
+          Genre is required.
+        </span>
+      </div>
+    </div>
+
+
+    <!-- Status -->
+    <div class="form-group">
+      <label class="control-label col-sm-3">Status</label>
+      <div class="col-sm-9">
+        <select class="form-control" formControlName="status">
+          <option value="not-started">Not Started</option>
+          <option value="reading">Reading</option>
+          <option value="finished">Finished</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Total Pages -->
+    <div class="form-group">
+      <label class="control-label col-sm-3">Total Pages *</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" formControlName="totalPages">
+      </div>
+    </div>
+
+    <!-- Current Page -->
+    <div class="form-group">
+      <label class="control-label col-sm-3">Current Page</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" formControlName="currentPage">
+      </div>
+    </div>
+
+    <!-- Rating -->
+    <div class="form-group" [ngClass]="{'has-error': bookForm.get('rating')?.invalid && bookForm.get('rating')?.touched}">
+      <label class="control-label col-sm-3">Rating (1 to 5)</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" formControlName="rating" min="1" max="5">
+        <span class="help-block" *ngIf="bookForm.get('rating')?.invalid && bookForm.get('rating')?.touched">
+          Rating must be between 1 and 5.
+        </span>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="form-group">
+      <label class="control-label col-sm-3">Notes</label>
+      <div class="col-sm-9">
+        <textarea rows="4" class="form-control" formControlName="notes"></textarea>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="form-group text-center">
+      <button type="submit" class="btn btn-primary">
+        {{ isEditMode ? 'Save Changes' : 'Add Book' }}
+      </button>
+      <button type="button" class="btn btn-default" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #loadingTpl>
+  <p>Loading data...</p>
+</ng-template>

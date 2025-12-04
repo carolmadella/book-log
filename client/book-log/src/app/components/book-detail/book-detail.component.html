@@ -1,0 +1,44 @@
+<div class="container" *ngIf="!loading; else loadingTpl">
+  <h2 class="text-center">Book Details</h2>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>{{ book?.title }}</strong>
+    </div>
+    <div class="panel-body">
+
+      <p><strong>Author:</strong> {{ book?.author }}</p>
+
+      <p><strong>Status:</strong>
+        <span class="label label-info" *ngIf="book?.status === 'not-started'">Not Started</span>
+        <span class="label label-warning" *ngIf="book?.status === 'reading'">Reading</span>
+        <span class="label label-success" *ngIf="book?.status === 'finished'">Finished</span>
+      </p>
+
+      <p><strong>Total Pages:</strong> {{ book?.totalPages || '—' }}</p>
+      <p><strong>Current Page:</strong> {{ book?.currentPage || '—' }}</p>
+
+      <p><strong>Rating:</strong> 
+        <span *ngIf="book?.rating; else noRating">
+          {{ book?.rating }} / 5
+        </span>
+        <ng-template #noRating>—</ng-template>
+      </p>
+
+      <p><strong>Notes:</strong></p>
+      <p>{{ book?.notes || 'No notes added.' }}</p>
+
+    </div>
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-primary" (click)="editBook()">Edit</button>
+    <button class="btn btn-danger" (click)="deleteBook()">Delete</button>
+    <button class="btn btn-default" (click)="goBack()">Back</button>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <p>Loading book data...</p>
+</ng-template>
+

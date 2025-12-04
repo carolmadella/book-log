@@ -1,0 +1,12 @@
+.dropdown-menu {
+    display: none;
+  }
+  
+  .open .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-divider {
+    margin:0.8rem;
+  }
+  

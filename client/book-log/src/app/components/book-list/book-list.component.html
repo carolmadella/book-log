@@ -1,0 +1,35 @@
+<div class="container">
+  <h1>My Book Log</h1>
+  <button (click)="newBook()">+ Add Book</button>
+  <table *ngIf="books.length > 0; else noBooks">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Status</th>
+        <th>Rating</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td (click)="viewBook(book._id)" style="cursor:pointer">
+          {{ book.title }}
+        </td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.status }}</td>
+        <td>{{ book.rating || '-' }}</td>
+        <td>
+          <button (click)="viewBook(book._id)">View</button>
+          <button [routerLink]="['/books', book._id, 'edit']">Edit</button>
+          <button (click)="deleteBook(book._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noBooks>
+    <p>No books yet. Add your first one!</p>
+  </ng-template>
+</div>
+

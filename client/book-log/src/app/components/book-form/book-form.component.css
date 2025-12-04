@@ -1,0 +1,15 @@
+.container {
+  max-width: 700px;
+}
+
+h2 {
+  margin-bottom: 25px;
+}
+
+.has-error .form-control {
+  border-color: #a94442;
+}
+
+.help-block {
+  color: #a94442;
+}
