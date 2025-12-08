@@ -10,10 +10,12 @@
       <p><strong>Author:</strong> {{ book?.author }}</p>
 
       <p><strong>Status:</strong>
-        <span class="label label-info" *ngIf="book?.status === 'not-started'">Not Started</span>
-        <span class="label label-warning" *ngIf="book?.status === 'reading'">Reading</span>
-        <span class="label label-success" *ngIf="book?.status === 'finished'">Finished</span>
-      </p>
+						<span class="label" [ngClass]="{
+						'label-default': book?.status === 'not-started',
+						'label-info': book?.status === 'reading',
+						'label-success': book?.status === 'finished',
+						}">{{getStatusLabel()}}</span>
+					</p>
 
       <p><strong>Total Pages:</strong> {{ book?.totalPages || '—' }}</p>
       <p><strong>Current Page:</strong> {{ book?.currentPage || '—' }}</p>

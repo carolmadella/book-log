@@ -1,5 +1,5 @@
-<div class="container" *ngIf="!loading; else loadingTpl">
-  <h2 class="text-center">
+<div class="container book-form" *ngIf="!loading; else loadingTpl">
+  <h2 class="text-left">
     {{ isEditMode ? 'Edit Book' : 'Add New Book' }}
   </h2>
   <form [formGroup]="bookForm" (ngSubmit)="submitForm()" class="form-horizontal">
@@ -52,10 +52,13 @@
     </div>
 
     <!-- Total Pages -->
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error': bookForm.get('totalPages')?.invalid && bookForm.get('totalPages')?.touched}">
       <label class="control-label col-sm-3">Total Pages *</label>
       <div class="col-sm-9">
         <input type="number" class="form-control" formControlName="totalPages">
+        <span class="help-block" *ngIf="bookForm.get('totalPages')?.invalid && bookForm.get('totalPages')?.touched">
+          Total Page is required and should be greater than 0.
+        </span>
       </div>
     </div>
 
@@ -87,8 +90,8 @@
     </div>
 
     <!-- Buttons -->
-    <div class="form-group text-center">
-      <button type="submit" class="btn btn-primary">
+    <div class="form-group text-center button-group">
+      <button type="submit" [disabled]="bookForm.invalid" class="btn btn-primary">
         {{ isEditMode ? 'Save Changes' : 'Add Book' }}
       </button>
       <button type="button" class="btn btn-default" (click)="cancel()">

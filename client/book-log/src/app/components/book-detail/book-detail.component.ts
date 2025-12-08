@@ -50,4 +50,14 @@ export class BookDetailComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/books']);
   }
+  getStatusLabel(): string{
+    let label: string = 'Not started';
+
+    if(this.book?.status === 'reading') label = 'Reading'
+    
+     if(this.book?.status === 'finished') label = 'Finished'
+
+    return label;
+  }
 }
+

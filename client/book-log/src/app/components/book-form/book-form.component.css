@@ -1,9 +1,52 @@
-.container {
-  max-width: 700px;
+/* Card-style container, similar to .book-list */
+.book-form {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  max-width: 720px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 25px 25px 30px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
-h2 {
-  margin-bottom: 25px;
+/* Title */
+.book-form h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Form layout (Bootstrap 3 friendly) */
+.form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 15px;
+}
+
+/* Labels */
+.control-label {
+  text-align: right;
+  font-weight: 600;
+  color: #444;
+}
+
+/* Inputs / selects / textareas */
+.form-control {
+  box-shadow: none;
+}
+
+.form-control:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px rgba(74, 144, 226, 0.3);
+}
+
+/* Validation states */
+.has-error .control-label,
+.has-error .help-block {
+  color: #a94442;
 }
 
 .has-error .form-control {
@@ -11,5 +54,37 @@ h2 {
 }
 
 .help-block {
-  color: #a94442;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+/* Notes textarea */
+textarea.form-control {
+  resize: vertical;
+}
+
+/* Buttons row */
+.form-group.text-center {
+  margin-top: 25px;
+}
+
+/* Primary + default buttons styled like the list page */
+.book-form .btn-primary {
+  min-width: 120px;
+  background-color: #4a90e2;
+  border-color: #3e7bc1;
+}
+
+.book-form .btn-primary:hover {
+  background-color: #3e7bc1;
+  border-color: #346aa5;
+}
+
+.book-form .btn-default {
+  min-width: 100px;
+  margin-left: 10px;
+}
+.button-group {
+  display: flex;
+  justify-content: flex-end;
 }

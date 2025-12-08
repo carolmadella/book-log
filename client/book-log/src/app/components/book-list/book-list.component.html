@@ -1,35 +1,121 @@
-<div class="container">
-  <h1>My Book Log</h1>
-  <button (click)="newBook()">+ Add Book</button>
-  <table *ngIf="books.length > 0; else noBooks">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Status</th>
-        <th>Rating</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let book of books">
-        <td (click)="viewBook(book._id)" style="cursor:pointer">
-          {{ book.title }}
-        </td>
-        <td>{{ book.author }}</td>
-        <td>{{ book.status }}</td>
-        <td>{{ book.rating || '-' }}</td>
-        <td>
-          <button (click)="viewBook(book._id)">View</button>
-          <button [routerLink]="['/books', book._id, 'edit']">Edit</button>
-          <button (click)="deleteBook(book._id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container book-list">
+  <div class="header">
+    <h1 class="pull-left">My Book Log</h1>
+    <button
+      type="button"
+      class="btn btn-primary pull-right"
+      (click)="newBook()"
+      *ngIf="books.length > 0">
+      <span class="glyphicon glyphicon-plus"></span> Add Book
+    </button>
+  </div>
+<!-- Filter Bar -->
+<div class="filter-bar">
+  <div class="row">
+    
+    <!-- Search -->
+    <div class="col-sm-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by title or author..."
+        [(ngModel)]="filters.search"
+        (input)="applyFilters()"
+      />
+    </div>
 
-  <ng-template #noBooks>
-    <p>No books yet. Add your first one!</p>
-  </ng-template>
+    <!-- Status Filter -->
+    <div class="col-sm-4">
+      <select
+        class="form-control"
+        [(ngModel)]="filters.status"
+        (change)="applyFilters()"
+      >
+        <option value="">All statuses</option>
+        <option value="not-started">Not Started</option>
+        <option value="reading">Reading</option>
+        <option value="finished">Finished</option>
+      </select>
+    </div>
+
+    <!-- Reset Button -->
+    <div class="col-sm-2 text-right">
+      <button class="btn btn-default btn-block" (click)="resetFilters()">
+        Clear
+      </button>
+    </div>
+
+  </div>
 </div>
 
+  <div class="table-responsive" *ngIf="books.length > 0; else noBooks">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Status</th>
+          <th>Rating</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <td (click)="viewBook(book._id)" class="title-cell">
+            {{ book.title }}
+          </td>
+          <td>{{ book.author }}</td>
+          <td>
+            <span class="label"
+                  [ngClass]="{
+                    'label-default': book.status === 'not-started',
+                    'label-info': book.status === 'reading',
+                    'label-success': book.status === 'finished'
+                  }">
+              {{ getStatusLabel(book) }}
+            </span>
+          </td>
+          <td>
+            <span *ngIf="book.rating; else noRating">
+              {{ book.rating }} / 5
+            </span>
+            <ng-template #noRating>—</ng-template>
+          </td>
+          <td class="text-right button-group">
+<button
+              type="button"
+              class="btn btn-xs btn-primary btn-margin"
+              (click)="viewBook(book._id)">
+              View
+            </button>
+            <button
+              type="button"
+              class="btn btn-xs btn-warning btn-margin"
+              [routerLink]="['/books', book._id, 'edit']">
+              Edit
+            </button>
+            <button
+              type="button"
+              class="btn btn-xs btn-danger"
+              (click)="deleteBook(book._id)">
+              Delete
+          </button>    
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noBooks>
+    <div class="empty-state text-center">
+      <p class="lead">No books yet.</p>
+      <p>Add your first one to start tracking your reading.</p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="newBook()">
+        <span class="glyphicon glyphicon-plus"></span> Add Book
+      </button>
+    </div>
+  </ng-template>
+</div>
