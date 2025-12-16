@@ -1,4 +1,4 @@
-<div class="container book-form" *ngIf="!loading; else loadingTpl">
+<div class="container book-form" *ngIf="!loading; else loadingTpl" @fadeInUp>
   <h2 class="text-left">
     {{ isEditMode ? 'Edit Book' : 'Add New Book' }}
   </h2>

@@ -2,11 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book.model';
 import { Router } from '@angular/router';
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.css']
+  styleUrls: ['./book-list.component.css'],
+  animations: [
+    trigger('listStagger', [
+      transition('* => *', [
+        query(
+          'tbody tr',
+          [
+            style({ opacity: 0, transform: 'translateY(5px)' }),
+            stagger(60, [
+              animate(
+                '200ms ease-out',
+                style({ opacity: 1, transform: 'translateY(0)' })
+              )
+            ])
+          ],
+          { optional: true }
+        )
+      ])
+    ])
+  ]
 })
 export class BookListComponent implements OnInit {
   books: Book[] = [];
