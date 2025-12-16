@@ -48,9 +48,20 @@ filters = {
 
 loadBooks() {
   this.bookService.getBooks().subscribe(response => {
-    this.originalBooks = response.books;
-    this.books = response.books;
+    this.originalBooks = response.books.map(this.addPercentage);
+    this.books = this.originalBooks;
   });
+}
+addPercentage(book: Book): Book {
+  if (book.totalPages && book.currentPage !== undefined) {
+    book.percentageRead = Math.min(
+      Math.round((book.currentPage / book.totalPages) * 100),
+      100
+    );
+  } else {
+    book.percentageRead = 0;
+  }
+  return book;
 }
 
   newBook() {

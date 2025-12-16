@@ -7,6 +7,7 @@ export interface Book {
   genre: string;
   totalPages: number;
   currentPage?: number;
+  percentageRead?: number;
   rating?: number;
   notes?: string;
   startDate?: string;

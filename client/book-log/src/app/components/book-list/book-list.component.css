@@ -98,3 +98,20 @@
   margin-top: 0;
 }
 
+
+.progress-xs {
+  height: 14px;
+  margin-bottom: 0;
+}
+
+.progress-xs .progress-bar {
+  font-size: 10px;
+  line-height: 14px;
+  padding: 0;
+  text-align: center;
+}
+
+.zero-progress {
+  background-color: #e0e0e0 !important;
+  color: #555;
+}
