@@ -25,3 +25,10 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## Animation Block
+
+“I added Angular route/component animations using @angular/animations.”
+“The book list rows fade and slide in using a staggered animation.”mz
+“The form card animates in on enter for a smoother UX.”
