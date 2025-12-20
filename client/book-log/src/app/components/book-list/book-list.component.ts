@@ -10,7 +10,7 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
   styleUrls: ['./book-list.component.css'],
   animations: [
     trigger('listStagger', [
-      transition('* => *', [
+      transition(':enter', [
         query(
           'tbody tr',
           [
@@ -30,39 +30,39 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
 })
 export class BookListComponent implements OnInit {
   books: Book[] = [];
-  originalBooks: Book[] = []; 
+  originalBooks: Book[] = [];
 
-filters = {
-  search: '',
-  status: ''
-};
+  filters = {
+    search: '',
+    status: ''
+  };
 
   constructor(
     private bookService: BookService,
-    private router: Router, 
-) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.loadBooks();
   }
 
-loadBooks() {
-  this.bookService.getBooks().subscribe(response => {
-    this.originalBooks = response.books.map(this.addPercentage);
-    this.books = this.originalBooks;
-  });
-}
-addPercentage(book: Book): Book {
-  if (book.totalPages && book.currentPage !== undefined) {
-    book.percentageRead = Math.min(
-      Math.round((book.currentPage / book.totalPages) * 100),
-      100
-    );
-  } else {
-    book.percentageRead = 0;
+  loadBooks() {
+    this.bookService.getBooks().subscribe(response => {
+      this.originalBooks = response.books.map(this.addPercentage);
+      this.books = this.originalBooks;
+    });
   }
-  return book;
-}
+  addPercentage(book: Book): Book {
+    if (book.totalPages && book.currentPage !== undefined) {
+      book.percentageRead = Math.min(
+        Math.round((book.currentPage / book.totalPages) * 100),
+        100
+      );
+    } else {
+      book.percentageRead = 0;
+    }
+    return book;
+  }
 
   newBook() {
     this.router.navigate(['books', 'new']);
@@ -82,35 +82,35 @@ addPercentage(book: Book): Book {
     });
   }
 
-  getStatusLabel(book: Book): string{
+  getStatusLabel(book: Book): string {
     let label: string = 'Not started';
 
-    if(book.status === 'reading') label = 'Reading'
-    
-     if(book.status === 'finished') label = 'Finished'
+    if (book.status === 'reading') label = 'Reading'
+
+    if (book.status === 'finished') label = 'Finished'
 
     return label;
   }
 
   applyFilters() {
-  const search = this.filters.search.toLowerCase();
-  const status = this.filters.status;
+    const search = this.filters.search.toLowerCase();
+    const status = this.filters.status;
 
-  this.books = this.originalBooks.filter(book => {
-    const matchesSearch =
-      book.title.toLowerCase().includes(search) ||
-      book.author.toLowerCase().includes(search);
+    this.books = this.originalBooks.filter(book => {
+      const matchesSearch =
+        book.title.toLowerCase().includes(search) ||
+        book.author.toLowerCase().includes(search);
 
-    const matchesStatus =
-      !status || book.status === status;
+      const matchesStatus =
+        !status || book.status === status;
 
-    return matchesSearch && matchesStatus;
-  });
-}
+      return matchesSearch && matchesStatus;
+    });
+  }
 
-resetFilters() {
-  this.filters = { search: '', status: '' };
-  this.books = [...this.originalBooks];
-}
+  resetFilters() {
+    this.filters = { search: '', status: '' };
+    this.books = [...this.originalBooks];
+  }
 
 }
